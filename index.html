@@ -3,141 +3,143 @@
 <head>
   <meta charset="UTF-8">
   <title>Gacha Tracker</title>
-  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="font-sans text-white text-center m-0 p-5 bg-cover " style="background-image: url('bg.jpg'); background-attachment: fixed;">
+<body class="font-sans text-white text-center m-0 p-5 bg-cover" style="background-image: url('bg.jpg'); background-attachment: fixed;">
 
-  <h1 class="mb-20 text-4xl font-bold mt-10">MY WAIFU IS CUMMINNGGGG✨😭💞</h1>
+  <h1 class="mb-10 text-4xl font-bold mt-10">MY WAIFU IS CUMMINNGGGG✨😭💞</h1>
 
+  <!-- ปุ่มเพิ่มตัวละคร -->
+  <button id="addBtn" class="bg-pink-600 hover:bg-pink-700 px-6 py-3 rounded-lg mb-10 transition">
+    ➕ เพิ่มตัวละคร
+  </button>
+
+  <!-- Container วางการ์ด -->
   <div id="cardContainer" class="flex flex-wrap justify-center gap-10 px-6">
-    
-    <!-- Card Example -->
-    <div class="card border-2 border-gray-300 rounded-lg p-8 w-[250px] text-center inline-block relative bg-gradient-to-b from-black/30 to-black/60" data-name="Daiyan">
-      <img src="daiyan.png" class="mx-auto w-[140px] mb-2">
-      <strong class="block mb-2">Daiyan V6</strong>
-      <label class="flex items-center justify-center gap-2 mb-2">
-        <input type="checkbox" onchange="toggleOwned(this)">
-        ได้แล้ว
-      </label>
-      <p class="note text-sm text-gray-300">"Wife"</p>
-    </div>
-
-    <div class="card border-2 border-gray-300 rounded-lg p-8 w-[250px] text-center inline-block relative bg-gradient-to-b from-black/30 to-black/60" data-name="Leva">
-      <img src="leva.png" class="mx-auto w-[140px] mb-2">
-      <strong class="block mb-2">Leva</strong>
-      <label class="flex items-center justify-center gap-2 mb-2">
-        <input type="checkbox" onchange="toggleOwned(this)">
-        ได้แล้ว
-      </label>
-      <p class="note text-sm text-gray-300">shawty เปิดให้สุดเติมสกินด้วย</p>
-    </div>
-
-    <div class="card border-2 border-gray-300 rounded-lg p-8 w-[250px] text-center inline-block relative bg-gradient-to-b from-black/30 to-black/60" data-name="Lenna">
-      <img src="lenna.png" class="mx-auto w-[140px] mb-2">
-      <strong class="block mb-2">Lenna</strong>
-      <label class="flex items-center justify-center gap-2 mb-2">
-        <input type="checkbox" onchange="toggleOwned(this)">
-        ได้แล้ว
-      </label>
-      <p class="note text-sm text-gray-300">prio รองจาก 45</p>
-    </div>
-
-    <div class="card border-2 border-gray-300 rounded-lg p-8 w-[250px] text-center inline-block relative bg-gradient-to-b from-black/30 to-black/60" data-name="Lennie">
-      <img src="lennie.png" class="mx-auto w-[140px] mb-2">
-      <strong class="block mb-2">Lennie</strong>
-      <label class="flex items-center justify-center gap-2 mb-2">
-        <input type="checkbox" onchange="toggleOwned(this)">
-        ได้แล้ว
-      </label>
-      <p class="note text-sm text-gray-300">พี่น้อง UMP</p>
-    </div>
-
-    <div class="card border-2 border-gray-300 rounded-lg p-8 w-[250px] text-center inline-block relative bg-gradient-to-b from-black/30 to-black/60" data-name="AK-15 Voymastina">
-      <img src="voymastina.png" class="mx-auto w-[140px] mb-2">
-      <strong class="block mb-2">AK-15 Voymastina</strong>
-      <label class="flex items-center justify-center gap-2 mb-2">
-        <input type="checkbox" onchange="toggleOwned(this)">
-        ได้แล้ว
-      </label>
-      <p class="note text-sm text-gray-300">กอริลล่าที่รัก</p>
-    </div>
-
-    <div class="card border-2 border-gray-300 rounded-lg p-8 w-[250px] text-center inline-block relative bg-gradient-to-b from-black/30 to-black/60" data-name="Springfield">
-      <img src="springfield.png" class="mx-auto w-[140px] mb-2">
-      <strong class="block mb-2">Springfield</strong>
-      <label class="flex items-center justify-center gap-2 mb-2">
-        <input type="checkbox" onchange="toggleOwned(this)">
-        ได้แล้ว
-      </label>
-      <p class="note text-sm text-gray-300">ขุ่นแม่</p>
-    </div>
-
-    <div class="card border-2 border-gray-300 rounded-lg p-8 w-[250px] text-center inline-block relative bg-gradient-to-b from-black/30 to-black/60" data-name="Andoris">
-      <img src="andoris.png" class="mx-auto w-[140px] mb-2">
-      <strong class="block mb-2">Andoris</strong>
-      <label class="flex items-center justify-center gap-2 mb-2">
-        <input type="checkbox" onchange="toggleOwned(this)">
-        ได้แล้ว
-      </label>
-      <p class="note text-sm text-gray-300">ได้ทั้งปืนได้ทั้งตัว</p>
-    </div>
-
-    <div class="card border-2 border-gray-300 rounded-lg p-8 w-[250px] text-center inline-block relative bg-gradient-to-b from-black/30 to-black/60" data-name="Helen">
-      <img src="helenv2.png" class="mx-auto w-[140px] mb-2">
-      <strong class="block mb-2">Helen</strong>
-      <label class="flex items-center justify-center gap-2 mb-2">
-        <input type="checkbox" onchange="toggleOwned(this)">
-        ได้แล้ว
-      </label>
-      <p class="note text-sm text-gray-300">DP-12 IS MASSIVE</p>
-    </div>
-
-    <div class="card border-2 border-gray-300 rounded-lg p-8 w-[250px] text-center inline-block relative bg-gradient-to-b from-black/30 to-black/60" data-name="Phaetusa">
-      <img src="phaetusa.png" class="mx-auto w-[140px] mb-2">
-      <strong class="block mb-2">Phaetusa</strong>
-      <label class="flex items-center justify-center gap-2 mb-2">
-        <input type="checkbox" onchange="toggleOwned(this)">
-        ได้แล้ว
-      </label>
-      <p class="note text-sm text-gray-300">ตัวเก่งแน่นอน</p>
-    </div>
-
+    <!-- จะถูกเพิ่มจาก JS -->
   </div>
 
-    <div class="card border-2 border-gray-500 rounded-lg p-10 w-[1700px] inline-block relative bg-gradient-to-b from-black/80 to-black/100 mt-11">
-      <div class="flex items-start space-x-4">
-        <img src="ak-12-pfp.png" class=" w-[140px] mb-2">
+  <!-- ข้อมูลผู้ใช้ -->
+  <div class="card border-2 border-gray-500 rounded-lg p-10 w-[1700px] inline-block relative bg-gradient-to-b from-black/80 to-black/100 mt-11">
+    <div class="flex items-start space-x-4">
+      <img src="ak-12-pfp.png" class="w-[140px] mb-2">
       <div class="text-left">
         <strong class="text-2xl block mb-4">Sokbird UID: 383220</strong>
-        <p class="note text-sm text-gray-300">"Hello There, i'm just a IT major that gooning to this game everyday, still wating for all DEFY team get in to this game ♥"</p>
+        <p class="note text-sm text-gray-300">
+          "Hello There, i'm just a IT major that gooning to this game everyday, still waiting for all DEFY team get in to this game ♥"
+        </p>
         <p class="note text-sm text-gray-300">I hope this game not ded TT</p>
       </div>
-
-      </div>
-      
     </div>
+  </div>
+
+  <!-- Popup -->
+  <div id="popup" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+    <div class="bg-gray-900 rounded-xl p-6 w-[500px] max-h-[80vh] overflow-y-auto shadow-lg border border-gray-700">
+      <h2 class="text-2xl font-bold mb-4">เลือกตัวละคร</h2>
+      <div id="charList" class="grid grid-cols-3 gap-4 mb-4">
+        <!-- รายการรูปจะถูกเพิ่มจาก JS -->
+      </div>
+      <textarea id="noteInput" placeholder="ใส่หมายเหตุ..." class="w-full p-2 rounded bg-gray-800 text-white mb-4"></textarea>
+      <div class="flex justify-end gap-2">
+        <button id="cancelBtn" class="bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded">ยกเลิก</button>
+        <button id="confirmBtn" class="bg-pink-600 hover:bg-pink-700 px-4 py-2 rounded">เพิ่ม</button>
+      </div>
+    </div>
+  </div>
 
   <script>
-    // โหลดสถานะตอนเปิดเว็บ
-    window.onload = function() {
-      document.querySelectorAll(".card").forEach(card => {
-        let name = card.querySelector("strong").innerText; // ใช้ชื่อจาก <strong>
-        let owned = localStorage.getItem(name); 
-        if (owned === "true") {
-          card.classList.add("border-green-500", "bg-green-900");
-          card.querySelector("input").checked = true;
-        }
-      });
+    const addBtn = document.getElementById("addBtn");
+    const popup = document.getElementById("popup");
+    const cancelBtn = document.getElementById("cancelBtn");
+    const confirmBtn = document.getElementById("confirmBtn");
+    const charList = document.getElementById("charList");
+    const cardContainer = document.getElementById("cardContainer");
+    const noteInput = document.getElementById("noteInput");
+
+    // ตัวอย่างรายชื่อตัวละคร (ชื่อไฟล์ภาพต้องมีอยู่ในโฟลเดอร์เดียวกับ HTML)
+    const characters = [
+      { name: "Daiyan", img: "daiyan.png" },
+      { name: "Leva", img: "leva.png" },
+      { name: "Lenna", img: "lenna.png" },
+      { name: "Lennie", img: "lennie.png" },
+      { name: "AK-15 Voymastina", img: "voymastina.png" },
+      { name: "Springfield", img: "springfield.png" },
+      { name: "Andoris", img: "andoris.png" },
+      { name: "Helen", img: "helenv2.png" },
+      { name: "Phaetusa", img: "phaetusa.png" }
+    ];
+
+    let selectedChar = null;
+
+    // โหลด popup list
+    characters.forEach(c => {
+      const div = document.createElement("div");
+      div.className = "cursor-pointer border-2 border-transparent hover:border-pink-500 rounded-lg p-2";
+      div.innerHTML = `<img src="${c.img}" class="w-[100px] mx-auto"><p class="mt-2">${c.name}</p>`;
+      div.onclick = () => {
+        document.querySelectorAll("#charList div").forEach(el => el.classList.remove("border-pink-500"));
+        div.classList.add("border-pink-500");
+        selectedChar = c;
+      };
+      charList.appendChild(div);
+    });
+
+    addBtn.onclick = () => {
+      popup.classList.remove("hidden");
+      noteInput.value = "";
+      selectedChar = null;
     };
 
-    // ฟังก์ชันเวลาติ๊ก checkbox
+    cancelBtn.onclick = () => {
+      popup.classList.add("hidden");
+    };
+
+    confirmBtn.onclick = () => {
+      if (!selectedChar) return alert("กรุณาเลือกตัวละครก่อน!");
+      addCharacter(selectedChar.name, selectedChar.img, noteInput.value);
+      popup.classList.add("hidden");
+    };
+
+    // ฟังก์ชันสร้างการ์ด
+    function addCharacter(name, img, note) {
+      const card = document.createElement("div");
+      card.className = "card border-2 border-gray-300 rounded-lg p-8 w-[250px] text-center inline-block relative bg-gradient-to-b from-black/30 to-black/60";
+      card.setAttribute("data-name", name);
+      card.innerHTML = `
+        <img src="${img}" class="mx-auto w-[140px] mb-2">
+        <strong class="block mb-2">${name}</strong>
+        <label class="flex items-center justify-center gap-2 mb-2">
+          <input type="checkbox" onchange="toggleOwned(this)">
+          ได้แล้ว
+        </label>
+        <p class="note text-sm text-gray-300">${note || ""}</p>
+      `;
+      cardContainer.appendChild(card);
+      saveToLocalStorage();
+    }
+
+    // โหลดจาก localStorage
+    window.onload = function() {
+      const saved = JSON.parse(localStorage.getItem("cards") || "[]");
+      saved.forEach(c => addCharacter(c.name, c.img, c.note));
+    };
+
+    // บันทึกลง localStorage
+    function saveToLocalStorage() {
+      const cards = Array.from(document.querySelectorAll("#cardContainer .card")).map(card => ({
+        name: card.getAttribute("data-name"),
+        img: card.querySelector("img").src.split("/").pop(),
+        note: card.querySelector(".note").innerText
+      }));
+      localStorage.setItem("cards", JSON.stringify(cards));
+    }
+
+    // toggleOwned
     function toggleOwned(checkbox) {
       let card = checkbox.closest(".card");
-      let name = card.querySelector("strong").innerText;
       let isOwned = checkbox.checked;
 
-      // ล้างของเดิมก่อน แล้วค่อยใส่
       card.classList.remove("border-gray-300", "bg-gradient-to-b", "from-black/30", "to-black/60", "border-green-500", "bg-green-900");
 
       if (isOwned) {
@@ -145,11 +147,7 @@
       } else {
         card.classList.add("border-gray-300", "bg-gradient-to-b", "from-black/30", "to-black/60");
       }
-
-      localStorage.setItem(name, isOwned);
     }
   </script>
 </body>
 </html>
-
-
