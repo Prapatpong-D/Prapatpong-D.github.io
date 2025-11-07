@@ -57,26 +57,16 @@
     const cardContainer = document.getElementById("cardContainer");
     const noteInput = document.getElementById("noteInput");
 
-    // ตัวอย่างรายชื่อตัวละคร (ชื่อไฟล์ภาพต้องมีอยู่ในโฟลเดอร์เดียวกับ HTML)
-    const characters = [
-      { name: "Daiyan", img: "daiyan.png" },
-      { name: "Leva", img: "leva.png" },
-      { name: "Lenna", img: "lenna.png" },
-      { name: "Lennie", img: "lennie.png" },
-      { name: "AK-15 Voymastina", img: "voymastina.png" },
-      { name: "Springfield", img: "springfield.png" },
-      { name: "Andoris", img: "andoris.png" },
-      { name: "Helen", img: "helenv2.png" },
-      { name: "Phaetusa", img: "phaetusa.png" }
-    ];
+    // ตัวอย่างรายชื่อตัวละคร (ไฟล์รูปอยู่กับไฟล์ HTML)
+    const characters = [];
 
     let selectedChar = null;
 
-    // โหลด popup list
+    // โหลด popup list (รูปตัวเลือก)
     characters.forEach(c => {
       const div = document.createElement("div");
-      div.className = "cursor-pointer border-2 border-transparent hover:border-pink-500 rounded-lg p-2";
-      div.innerHTML = `<img src="${c.img}" class="w-[100px] mx-auto"><p class="mt-2">${c.name}</p>`;
+      div.className = "cursor-pointer border-2 border-transparent hover:border-pink-500 rounded-lg p-2 text-center";
+      div.innerHTML = `<img src="${c.img}" class="w-[100px] mx-auto"><p class="mt-2 text-sm">${c.name}</p>`;
       div.onclick = () => {
         document.querySelectorAll("#charList div").forEach(el => el.classList.remove("border-pink-500"));
         div.classList.add("border-pink-500");
@@ -89,6 +79,8 @@
       popup.classList.remove("hidden");
       noteInput.value = "";
       selectedChar = null;
+      // clear highlight
+      document.querySelectorAll("#charList div").forEach(el => el.classList.remove("border-pink-500"));
     };
 
     cancelBtn.onclick = () => {
@@ -97,45 +89,88 @@
 
     confirmBtn.onclick = () => {
       if (!selectedChar) return alert("กรุณาเลือกตัวละครก่อน!");
-      addCharacter(selectedChar.name, selectedChar.img, noteInput.value);
+      addCharacter(selectedChar.name, selectedChar.img, noteInput.value, false, true);
       popup.classList.add("hidden");
     };
 
-    // ฟังก์ชันสร้างการ์ด
-    function addCharacter(name, img, note) {
+    /**
+     * สร้างการ์ดใหม่และ (optionally) บันทึกลง localStorage
+     * @param {string} name
+     * @param {string} img
+     * @param {string} note
+     * @param {boolean} owned
+     * @param {boolean} save whether to call saveToLocalStorage()
+     */
+    function addCharacter(name, img, note = "", owned = false, save = true) {
       const card = document.createElement("div");
-      card.className = "card border-2 border-gray-300 rounded-lg p-8 w-[250px] text-center inline-block relative bg-gradient-to-b from-black/30 to-black/60";
+      card.className = "card border-2 border-gray-300 rounded-lg p-8 w-[250px] text-left inline-block relative bg-gradient-to-b from-black/30 to-black/60";
       card.setAttribute("data-name", name);
+
       card.innerHTML = `
-        <img src="${img}" class="mx-auto w-[140px] mb-2">
-        <strong class="block mb-2">${name}</strong>
-        <label class="flex items-center justify-center gap-2 mb-2">
-          <input type="checkbox" onchange="toggleOwned(this)">
-          ได้แล้ว
-        </label>
-        <p class="note text-sm text-gray-300">${note || ""}</p>
+        <!-- delete button -->
+        <button class="delete-btn absolute top-2 right-2 text-white bg-black/40 hover:bg-red-600 rounded-full p-1 w-8 h-8 flex items-center justify-center text-sm" title="ลบ">×</button>
+
+        <img src="${img}" class="w-[140px] mb-2 float-left mr-4">
+        <div class="pt-1">
+          <strong class="block mb-2 text-lg">${name}</strong>
+          <label class="flex items-center gap-2 mb-2">
+            <input type="checkbox" class="owned-checkbox">
+            <span>ได้แล้ว</span>
+          </label>
+          <p class="note text-sm text-gray-300 clear-left">${note || ""}</p>
+        </div>
       `;
+
+      // เพิ่ม event ให้ checkbox
+      const checkbox = card.querySelector(".owned-checkbox");
+      checkbox.onchange = () => {
+        toggleOwned(checkbox);
+        saveToLocalStorage();
+      };
+
+      // set initial owned state
+      if (owned) {
+        checkbox.checked = true;
+        card.classList.add("border-green-500", "bg-green-900");
+      }
+
+      // add delete handler
+      const delBtn = card.querySelector(".delete-btn");
+      delBtn.onclick = (e) => {
+        e.stopPropagation();
+        if (!confirm(`ต้องการลบ ${name} หรือไม่?`)) return;
+        card.remove();
+        saveToLocalStorage();
+      };
+
       cardContainer.appendChild(card);
-      saveToLocalStorage();
+
+      if (save) saveToLocalStorage();
     }
 
-    // โหลดจาก localStorage
+    // โหลดจาก localStorage ตอนเปิดหน้า
     window.onload = function() {
       const saved = JSON.parse(localStorage.getItem("cards") || "[]");
-      saved.forEach(c => addCharacter(c.name, c.img, c.note));
+      saved.forEach(c => {
+        // c should have {name, img, note, owned}
+        addCharacter(c.name, c.img, c.note, !!c.owned, false);
+      });
+      // no immediate save needed here
     };
 
-    // บันทึกลง localStorage
+    // เก็บข้อมูลทุกการ์ดใน container ลง localStorage (รวม owned)
     function saveToLocalStorage() {
-      const cards = Array.from(document.querySelectorAll("#cardContainer .card")).map(card => ({
-        name: card.getAttribute("data-name"),
-        img: card.querySelector("img").src.split("/").pop(),
-        note: card.querySelector(".note").innerText
-      }));
+      const cards = Array.from(document.querySelectorAll("#cardContainer .card")).map(card => {
+        const name = card.getAttribute("data-name");
+        const img = card.querySelector("img").src.split("/").pop();
+        const note = card.querySelector(".note")?.innerText || "";
+        const owned = !!card.querySelector(".owned-checkbox") && card.querySelector(".owned-checkbox").checked;
+        return { name, img, note, owned };
+      });
       localStorage.setItem("cards", JSON.stringify(cards));
     }
 
-    // toggleOwned
+    // การจัดการเมื่อติ๊ก checkbox (เปลี่ยนสีการ์ด)
     function toggleOwned(checkbox) {
       let card = checkbox.closest(".card");
       let isOwned = checkbox.checked;
