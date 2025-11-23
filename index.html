@@ -104,7 +104,7 @@
   { name: "Vector", img: "vector.png" },
   { name: "Vepley", img: "vepley.png" },
   { name: "Yoohee", img: "yoohee.png" },
-  { name: "Zhoahui", img: "zhaohui.png" },
+  { name: "Zhoahui", img: "zhoahui.png" },
 
     ];
 
@@ -150,6 +150,19 @@
      * @param {boolean} save whether to call saveToLocalStorage()
      */
     function addCharacter(name, img, note = "", owned = false, save = true) {
+      // ป้องกันการสร้างการ์ดซ้ำโดยเช็คจาก `img` (src)
+      const duplicateImg = Array.from(document.querySelectorAll("#cardContainer .card img")).find(i => i && i.getAttribute("src") === img);
+      if (duplicateImg) {
+        // เน้นการ์ดที่มีอยู่แล้วเป็นการชั่วคราวแล้วแจ้งผู้ใช้
+        const existingCard = duplicateImg.closest('.card');
+        if (existingCard) {
+          existingCard.classList.add('ring-4', 'ring-yellow-400');
+          setTimeout(() => existingCard.classList.remove('ring-4', 'ring-yellow-400'), 1200);
+        }
+        alert(`การ์ดของ "${name}" มีอยู่แล้ว`);
+        return; // ข้ามการสร้างการ์ดใหม่
+      }
+
       const card = document.createElement("div");
       card.className = "card border-2 border-gray-300 rounded-lg p-8 w-[250px] text-left inline-block relative bg-gradient-to-b from-black/30 to-black/60";
       card.setAttribute("data-name", name);
@@ -196,6 +209,7 @@
       if (save) saveToLocalStorage();
     }
 
+
     // โหลดจาก localStorage ตอนเปิดหน้า
     window.onload = function() {
       const saved = JSON.parse(localStorage.getItem("cards") || "[]");
@@ -234,7 +248,6 @@
   </script>
 </body>
 </html>
-
 
 
 
