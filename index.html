@@ -183,7 +183,7 @@
     function saveToLocalStorage() {
       const cards = Array.from(document.querySelectorAll("#cardContainer .card")).map(card => {
         const name = card.getAttribute("data-name");
-        const img = card.querySelector("img").src.split("/").pop();
+        const img = card.querySelector("img").getAttribute("src");
         const note = card.querySelector(".note")?.innerText || "";
         const owned = !!card.querySelector(".owned-checkbox") && card.querySelector(".owned-checkbox").checked;
         return { name, img, note, owned };
@@ -207,6 +207,7 @@
   </script>
 </body>
 </html>
+
 
 
 
